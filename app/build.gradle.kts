@@ -16,23 +16,13 @@ android {
     targetSdk = 36
     versionCode = 1
     versionName = "1.0"
-
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
 
   packaging {
-    resources {
-      excludes += "/META-INF/{AL2.0,LGPL2.1}"
-    }
+    resources { excludes += "/META-INF/{AL2.0,LGPL2.1}" }
     jniLibs {
-      pickFirsts += listOf(
-        "lib/**/libc++_shared.so",
-        "lib/**/libavcodec.so",
-        "lib/**/libavformat.so",
-        "lib/**/libavutil.so",
-        "lib/**/libswscale.so",
-        "lib/**/libswresample.so"
-      )
+      pickFirsts += listOf("lib/**/libc++_shared.so", "lib/**/libavcodec.so", "lib/**/libavformat.so", "lib/**/libavutil.so", "lib/**/libswscale.so", "lib/**/libswresample.so")
       useLegacyPackaging = true
     }
   }
@@ -55,8 +45,7 @@ android {
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
       signingConfig = signingConfigs.getByName("release")
     }
-    debug {
-    }
+    debug {}
   }
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -69,30 +58,19 @@ android {
   testOptions { unitTests { isIncludeAndroidResources = true } }
 }
 
-// Configure the Secrets Gradle Plugin to use .env and .env.example files
-// to match the convention used in Web projects.
 secrets {
   propertiesFileName = ".env"
   defaultPropertiesFileName = ".env.example"
 }
 
-// Some unused dependencies are commented out below instead of being removed.
-// This makes it easy to add them back in the future if needed.
 dependencies {
   implementation(libs.ffmpeg.kit.full)
   implementation(libs.fresco.animated.webp)
   implementation(libs.fresco.webpsupport)
   implementation(libs.fresco.animated.base)
   implementation(libs.fresco.core)
-
-
   implementation(platform(libs.androidx.compose.bom))
-  // implementation(libs.accompanist.permissions)
   implementation(libs.androidx.activity.compose)
-  // implementation(libs.androidx.camera.camera2)
-  // implementation(libs.androidx.camera.core)
-  // implementation(libs.androidx.camera.lifecycle)
-  // implementation(libs.androidx.camera.view)
   implementation(libs.androidx.compose.material.icons.core)
   implementation(libs.androidx.compose.material.icons.extended)
   implementation(libs.androidx.compose.material3)
@@ -100,7 +78,6 @@ dependencies {
   implementation(libs.androidx.compose.ui.graphics)
   implementation(libs.androidx.compose.ui.tooling.preview)
   implementation(libs.androidx.core.ktx)
-  // implementation(libs.androidx.datastore.preferences)
   implementation(libs.androidx.lifecycle.runtime.compose)
   implementation(libs.androidx.lifecycle.runtime.ktx)
   implementation(libs.androidx.lifecycle.viewmodel.compose)
@@ -115,10 +92,8 @@ dependencies {
   implementation(libs.coil.compose)
   implementation(libs.coil.video)
   implementation(libs.coil.gif)
-  // implementation(libs.firebase.ai)
   implementation(libs.kotlinx.coroutines.android)
   implementation(libs.kotlinx.coroutines.core)
-  // implementation(libs.play.services.location)
   testImplementation(libs.androidx.compose.ui.test.junit4)
   testImplementation(libs.androidx.core)
   testImplementation(libs.androidx.junit)
@@ -126,8 +101,6 @@ dependencies {
   testImplementation(libs.kotlinx.coroutines.test)
   testImplementation(libs.robolectric)
   testImplementation(libs.roborazzi)
-  testImplementation(libs.roborazzi.compose)
-  testImplementation(libs.roborazzi.junit.rule)
   testImplementation(libs.roborazzi.compose)
   testImplementation(libs.roborazzi.junit.rule)
   androidTestImplementation(platform(libs.androidx.compose.bom))
@@ -141,16 +114,15 @@ dependencies {
 }
 
 kotlin {
-    sourceSets.all {
-        languageSettings.optIn("androidx.compose.material3.ExperimentalMaterial3Api")
-        languageSettings.optIn("androidx.compose.foundation.layout.ExperimentalLayoutApi")
-    }
+  sourceSets.all {
+    languageSettings.optIn("androidx.compose.material3.ExperimentalMaterial3Api")
+    languageSettings.optIn("androidx.compose.foundation.layout.ExperimentalLayoutApi")
+  }
 }
 
-
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    compilerOptions {
-        freeCompilerArgs.add("-opt-in=androidx.compose.material3.ExperimentalMaterial3Api")
-        freeCompilerArgs.add("-opt-in=androidx.compose.foundation.layout.ExperimentalLayoutApi")
-    }
+  compilerOptions {
+    freeCompilerArgs.add("-opt-in=androidx.compose.material3.ExperimentalMaterial3Api")
+    freeCompilerArgs.add("-opt-in=androidx.compose.foundation.layout.ExperimentalLayoutApi")
+  }
 }
